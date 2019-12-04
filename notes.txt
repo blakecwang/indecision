@@ -4,3 +4,8 @@ http://indecision.mead.io
 to get final source code
 http://links.mead.io/indecision
 
+to generate node_modules
+yarn install
+
+to continuously compile JSX to JS (drop --watch for one-time operation)
+babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch

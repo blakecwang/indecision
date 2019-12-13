@@ -9,3 +9,6 @@ yarn install
 
 to continuously compile JSX to JS (drop --watch for one-time operation)
 babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch
+
+to run the server (from public/ folder)
+live-server public

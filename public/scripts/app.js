@@ -1,81 +1,66 @@
 'use strict';
 
-console.log('app.js is running');
-
-var app = {
-  title: 'Indecision',
-  subtitle: 'But how to choose?',
-  options: ['One', 'Two'],
-  nothing: 'nowhere'
+var add = function add(a, b) {
+  console.log('arguments', arguments);
+  return a + b;
+};
+// can't access 'arguments'
+var addArrow = function addArrow(a, b) {
+  return a + b;
 };
 
-var template = React.createElement(
-  'div',
-  null,
-  React.createElement(
-    'h1',
-    null,
-    app.title.toUpperCase()
-  ),
-  app.subtitle && React.createElement(
-    'h2',
-    null,
-    app.subtitle
-  ),
-  React.createElement(
-    'p',
-    null,
-    app.options.length > 0 ? 'Here are your options:' : 'No options!'
-  ),
-  React.createElement(
-    'ol',
-    null,
-    React.createElement(
-      'li',
-      null,
-      'item 1'
-    ),
-    React.createElement(
-      'li',
-      null,
-      'item 2'
-    )
-  )
-);
+console.log(add(55, 1));
+console.log(addArrow(55, 1));
 
 var user = {
-  name: 'Blake Wang',
-  //  age: 21,
-  location: 'Santa Barbara'
-};
+  name: 'Blake',
+  cities: ['Goleta', 'San Diego'],
+  printPlacesLived: function printPlacesLived() {
+    // workaround for the old es5 way
+    var that = this;
 
-function getLocation(location) {
-  if (location) {
-    return React.createElement(
-      'p',
-      null,
-      'Location: ',
-      location
-    );
+    this.cities.forEach(function (city) {
+      console.log(that.name + ' has lived in ' + city);
+    });
   }
-}
+};
+user.printPlacesLived();
 
-var templateTwo = React.createElement(
-  'div',
-  null,
-  React.createElement(
-    'h1',
-    null,
-    user.name ? user.name.toUpperCase() : 'ANONYMOUS'
-  ),
-  user.age && user.age >= 18 && React.createElement(
-    'p',
-    null,
-    'Age: ',
-    user.age
-  ),
-  getLocation(user.location)
-);
+// 'this' is undefined in a regular anonymous function
+var regularAnonymous = function regularAnonymous() {
+  console.log(this);
+};
+regularAnonymous(); // => undefined
 
-var appRoot = document.getElementById("app");
-ReactDOM.render(template, appRoot);
+// for arrow functions, 'this' is defined the same as the scope in which the
+// function was defined
+var arrowUser = {
+  name: 'Jacque',
+  cities: ['France', 'Bali'],
+  // new syntax for regular anonymous function
+  printPlacesLived: function printPlacesLived() {
+    var _this = this;
+
+    return this.cities.map(function (city) {
+      return _this.name + ' has lived in ' + city;
+    });
+
+    //    this.cities.forEach((city) => {
+    //      console.log(this.name + ' has lived in ' + city)
+    //    });
+  }
+};
+console.log(arrowUser.printPlacesLived());
+
+var multiplyer = {
+  numbers: [1, 2, 3, 4, 5],
+  multiplyBy: 5,
+  multiply: function multiply() {
+    var _this2 = this;
+
+    return this.numbers.map(function (number) {
+      return _this2.multiplyBy * number;
+    });
+  }
+};
+console.log(multiplyer.multiply());

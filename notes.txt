@@ -23,3 +23,19 @@ const: no              no
 
 var, let, const => function-scoped
 let, const => block-scoped
+
+regular functions can have names
+arrow functions are always anonymous
+
+can't access 'arguments' keyword inside arrow functions
+
+when we use a function as the value of object property, then the 'this' keyword
+references that object:
+const myObj = {
+  someProperty: function () {
+    this // This 'this' refers to myObj
+  }
+}
+
+invocations of 'this' inside an arrow function (which are all anonymous) use
+the same 'this' as the context in which the function was defined

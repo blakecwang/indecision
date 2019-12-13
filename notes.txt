@@ -12,3 +12,14 @@ babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch
 
 to run the server (from public/ folder)
 live-server public
+
+       can reassign?   can redefine?
+var:   yes             yes
+let:   yes             no
+const: no              no
+- default to using const
+- if you need to reassign, switch to let
+- NEVER use var
+
+var, let, const => function-scoped
+let, const => block-scoped

@@ -20,16 +20,6 @@ var onFormSubmit = function onFormSubmit(e) {
   }
 };
 
-var optionsTags = function optionsTags(options) {
-  return options.map(function (option) {
-    return React.createElement(
-      'li',
-      null,
-      option
-    );
-  });
-};
-
 var removeAllOptions = function removeAllOptions() {
   if (app.options.length > 0) {
     app.options = [];
@@ -59,7 +49,13 @@ var renderApp = function renderApp() {
     React.createElement(
       'ol',
       null,
-      optionsTags(app.options)
+      app.options.map(function (option, i) {
+        return React.createElement(
+          'li',
+          { key: i },
+          option
+        );
+      })
     ),
     React.createElement(
       'button',

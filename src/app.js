@@ -18,8 +18,6 @@ const onFormSubmit = (e) => {
   }
 };
 
-const optionsTags = (options) => options.map((option) => <li>{option}</li>);
-
 const removeAllOptions = () => {
   if (app.options.length > 0) {
     app.options = [];
@@ -33,7 +31,11 @@ const renderApp = () => {
       <h1>{app.title.toUpperCase()}</h1>
       {app.subtitle && <h2>{app.subtitle}</h2>}
       <p>{app.options.length > 0 ? 'Here are your options:' : 'No options!'}</p>
-      <ol>{optionsTags(app.options)}</ol>
+      <ol>
+      {
+        app.options.map((option, i) => <li key={i}>{option}</li>)
+      }
+      </ol>
       <button onClick={removeAllOptions}>Remove All</button>
       <form onSubmit={onFormSubmit}>
         <input type="text" name="option"/>

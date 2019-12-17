@@ -39,3 +39,12 @@ const myObj = {
 
 invocations of 'this' inside an arrow function (which are all anonymous) use
 the same 'this' as the context in which the function was defined
+
+in JSX, HTML 'class' is now 'className', e.g. <button className="sweetness">
+some other things have changed names, see here https://reactjs.org/docs/dom-elements.html
+
+Synthetic events reference:
+https://reactjs.org/docs/events.html
+- scroll down to Supported Events
+
+in JSX (and prolly in JS), empty strings are falsey

@@ -1,66 +1,85 @@
 'use strict';
 
-var add = function add(a, b) {
-  console.log('arguments', arguments);
-  return a + b;
+console.log('app.js is running');
+
+var app = {
+  title: 'Indecision',
+  subtitle: 'But how to choose?',
+  options: [],
+  nothing: 'nowhere'
 };
-// can't access 'arguments'
-var addArrow = function addArrow(a, b) {
-  return a + b;
-};
 
-console.log(add(55, 1));
-console.log(addArrow(55, 1));
+var onFormSubmit = function onFormSubmit(e) {
+  e.preventDefault();
 
-var user = {
-  name: 'Blake',
-  cities: ['Goleta', 'San Diego'],
-  printPlacesLived: function printPlacesLived() {
-    // workaround for the old es5 way
-    var that = this;
-
-    this.cities.forEach(function (city) {
-      console.log(that.name + ' has lived in ' + city);
-    });
+  var option = e.target.elements.option.value;
+  if (option) {
+    app.options.push(option);
+    e.target.elements.option.value = '';
+    renderApp();
   }
 };
-user.printPlacesLived();
 
-// 'this' is undefined in a regular anonymous function
-var regularAnonymous = function regularAnonymous() {
-  console.log(this);
+var optionsTags = function optionsTags(options) {
+  return options.map(function (option) {
+    return React.createElement(
+      'li',
+      null,
+      option
+    );
+  });
 };
-regularAnonymous(); // => undefined
 
-// for arrow functions, 'this' is defined the same as the scope in which the
-// function was defined
-var arrowUser = {
-  name: 'Jacque',
-  cities: ['France', 'Bali'],
-  // new syntax for regular anonymous function
-  printPlacesLived: function printPlacesLived() {
-    var _this = this;
-
-    return this.cities.map(function (city) {
-      return _this.name + ' has lived in ' + city;
-    });
-
-    //    this.cities.forEach((city) => {
-    //      console.log(this.name + ' has lived in ' + city)
-    //    });
+var removeAllOptions = function removeAllOptions() {
+  if (app.options.length > 0) {
+    app.options = [];
+    renderApp();
   }
 };
-console.log(arrowUser.printPlacesLived());
 
-var multiplyer = {
-  numbers: [1, 2, 3, 4, 5],
-  multiplyBy: 5,
-  multiply: function multiply() {
-    var _this2 = this;
+var renderApp = function renderApp() {
+  var template = React.createElement(
+    'div',
+    null,
+    React.createElement(
+      'h1',
+      null,
+      app.title.toUpperCase()
+    ),
+    app.subtitle && React.createElement(
+      'h2',
+      null,
+      app.subtitle
+    ),
+    React.createElement(
+      'p',
+      null,
+      app.options.length > 0 ? 'Here are your options:' : 'No options!'
+    ),
+    React.createElement(
+      'ol',
+      null,
+      optionsTags(app.options)
+    ),
+    React.createElement(
+      'button',
+      { onClick: removeAllOptions },
+      'Remove All'
+    ),
+    React.createElement(
+      'form',
+      { onSubmit: onFormSubmit },
+      React.createElement('input', { type: 'text', name: 'option' }),
+      React.createElement(
+        'button',
+        null,
+        'Add Option'
+      )
+    )
+  );
 
-    return this.numbers.map(function (number) {
-      return _this2.multiplyBy * number;
-    });
-  }
+  ReactDOM.render(template, appRoot);
 };
-console.log(multiplyer.multiply());
+
+var appRoot = document.getElementById("app");
+renderApp();

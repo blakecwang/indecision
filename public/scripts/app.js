@@ -6,6 +6,7 @@ var app = {
   title: 'Indecision',
   subtitle: 'But how to choose?',
   options: [],
+  choice: undefined,
   nothing: 'nowhere'
 };
 
@@ -25,6 +26,11 @@ var removeAllOptions = function removeAllOptions() {
     app.options = [];
     renderApp();
   }
+};
+
+var onMakeDecision = function onMakeDecision() {
+  var randomNum = Math.floor(Math.random() * app.options.length);
+  alert(app.options[randomNum]);
 };
 
 var renderApp = function renderApp() {
@@ -58,11 +64,6 @@ var renderApp = function renderApp() {
       })
     ),
     React.createElement(
-      'button',
-      { onClick: removeAllOptions },
-      'Remove All'
-    ),
-    React.createElement(
       'form',
       { onSubmit: onFormSubmit },
       React.createElement('input', { type: 'text', name: 'option' }),
@@ -71,6 +72,16 @@ var renderApp = function renderApp() {
         null,
         'Add Option'
       )
+    ),
+    React.createElement(
+      'button',
+      { disabled: app.options.length === 0, onClick: onMakeDecision },
+      'What should I do?'
+    ),
+    React.createElement(
+      'button',
+      { onClick: removeAllOptions },
+      'Remove All'
     )
   );
 

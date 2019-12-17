@@ -4,6 +4,7 @@ const app = {
   title: 'Indecision',
   subtitle: 'But how to choose?',
   options: [],
+  choice: undefined,
   nothing: 'nowhere'
 }
 
@@ -25,6 +26,11 @@ const removeAllOptions = () => {
   }
 };
 
+const onMakeDecision = () => {
+  const randomNum = Math.floor(Math.random() * app.options.length);
+  alert(app.options[randomNum]);
+};
+
 const renderApp = () => {
   const template = (
     <div>
@@ -36,11 +42,12 @@ const renderApp = () => {
         app.options.map((option, i) => <li key={i}>{option}</li>)
       }
       </ol>
-      <button onClick={removeAllOptions}>Remove All</button>
       <form onSubmit={onFormSubmit}>
         <input type="text" name="option"/>
         <button>Add Option</button>
       </form>
+      <button disabled={app.options.length === 0} onClick={onMakeDecision}>What should I do?</button>
+      <button onClick={removeAllOptions}>Remove All</button>
     </div>
   );
 

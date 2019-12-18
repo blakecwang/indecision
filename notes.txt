@@ -48,3 +48,5 @@ https://reactjs.org/docs/events.html
 - scroll down to Supported Events
 
 in JSX (and prolly in JS), empty strings are falsey
+
+classes are named with UpperCase

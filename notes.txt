@@ -50,3 +50,24 @@ https://reactjs.org/docs/events.html
 in JSX (and prolly in JS), empty strings are falsey
 
 classes are named with UpperCase
+
+React component lifecycle methods
+  componentDidMount()
+  componentDidUpdate(prevProps, prevState)
+  componentWillUnmount()
+  there are more, just google for 'em
+
+localStorage
+  > localStorage.setItem('name', 'Blake');
+  < undefined
+  > localStorage.getItem('name');
+  < "Blake"
+  > localStorage.removeItem('name');
+  < undefined
+  > localStorage.getItem('name');
+  < null
+- only works with string data
+- numbers get implicitly converted to strings
+
+JSON.stringify (object -> string)
+JSON.parse (string -> object)

@@ -1,4 +1,4 @@
-console.log('app.js is running')
+console.log('app.js is running!')
 
 class IndecisionApp extends React.Component {
   constructor(props) {
